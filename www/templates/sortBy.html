@@ -1,0 +1,18 @@
+<ion-view title="Ordenar por">
+    <ion-content padding="'true'" class="has-header">
+        
+		<form class="list" ng-submit="sort(sortby)">	
+			
+		 <ion-list>
+			<ion-radio ng-model="sortby" ng-value="'n'" >Nombre</ion-radio>
+			<ion-radio ng-model="sortby" ng-value="'plh'" >Precio (Menor-Mayor)</ion-radio>
+			<ion-radio ng-model="sortby" ng-value="'phl'" >Precio (Mayor-Menor)</ion-radio>
+		 </ion-list>
+		 
+		 <div class="list box">
+			<button class="button button-block button-calm" type="submit">Aplicar</button>
+		</div>  
+			
+        </form>
+    </ion-content>
+</ion-view>
