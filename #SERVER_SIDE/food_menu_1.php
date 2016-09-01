@@ -12,8 +12,8 @@ $conn = new mysqli("localhost", "root", "ZlHF6A7KEGWN", "lozcar");
 		$till = $conn->real_escape_string($till);
 	}
 
-	$query="SELECT p_id,p_name,p_description,p_image_id,p_price FROM products where p_id<=".$till." and p_available=1 ";
-        //$query="SELECT menu_id AS p_id,menu_name AS p_name,menu_description AS p_description,menu_photo AS p_image_id,menu_price AS p_price FROM sqfnjcd9v_menus where menu_id<=".$till." and menu_status=1 ";
+	//$query="SELECT p_id,p_name,p_description,p_image_id,p_price FROM products where p_id<=".$till." and p_available=1 ";
+        $query="SELECT menu_id AS p_id,menu_name AS p_name,menu_description AS p_description,CONCAT('http://lozcar.bitnamiapp.com/assets/images/',menu_photo) AS p_image_id,menu_price AS p_price FROM sqfnjcd9v_menus where menu_status=1  ";
 
 
 	if(isset($_GET["category"]) && !empty($_GET["category"]) ){
@@ -21,16 +21,16 @@ $conn = new mysqli("localhost", "root", "ZlHF6A7KEGWN", "lozcar");
 		$cat = $_GET["category"];
 		$cat = stripslashes($cat);
 		$cat = $conn->real_escape_string($cat);
-		$query=$query."and p_category like ".$cat." ";
+		$query=$query."and menu_category_id like ".$cat." ";
 		
 	}
 	
 	if( isset($_GET["sort"]) && !empty($_GET["sort"]) ){
 		
 		$s = $_GET["sort"];
-		if($s=="n"){	$query.="order by p_name";}
-		else if($s=="plh"){	$query.="order by p_price";}
-		else if($s=="phl"){	$query.="order by p_price desc";}
+		if($s=="n"){	$query.="order by menu_name";}
+		else if($s=="plh"){	$query.="order by menu_price";}
+		else if($s=="phl"){	$query.="order by menu_price desc";}
 	}
 
 	
@@ -49,7 +49,7 @@ while($rs = $result->fetch_array(MYSQLI_ASSOC)) {
 
 
 // Adding has more
-$result=$conn->query("SELECT count(*) as total from products");
+$result=$conn->query("SELECT count(*) as total from sqfnjcd9v_menus");
 $data=$result->fetch_array(MYSQLI_ASSOC);
 $total = $data['total'];
 
